@@ -21,25 +21,58 @@ class ViewController: UIViewController {
     //MARK: Methods (fuctions) - Behaviors
     
     // Runs as soon as the view becomes visible for the user
-    override func viewDidLoad() {
+     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        speak(message: "I'm thinking of a number between 1 and 100, guess what it is")
+        
+        // Report the target Number to the Console for testing
+        print("For Testing Purpose, the random Number is \(targetNumber)")
+        
+        
+    }
+
+    // will be used to check Guess
+    @IBAction func checkGuess(_ sender: Any) {
+        
+        //Obtain the guess vlaue from the Text field
+        let guessText = submittedGuess.text!
+        let guessNumber = Int(guessText)!
+        
+        // For testing purpose, what was the guessNumber
+        print("For testing purpose, the guessed Number is \(guessNumber)")
+        
+        
+        
+        // Give Feedback to the user
+        if guessNumber < targetNumber {
+            print("guess higher next time")
+            speak(message: "guess higher next time")
+        } else if guessNumber > targetNumber {
+            print("guess lower next time")
+            speak(message: "guess lower next time")
+        } else {
+            print("You are correct")
+            speak(message: "You are correct")
+        }
+
+    }
+    
+    // A Function that will speak whatever message is provided
+    func speak(message: String)  {
         
         // Make an object called synthesiser, which is an instance of the
         // class 'AVspeechSythesizer'\
         let Synthesizer = AVSpeechSynthesizer()
-        
-        // Make a string that contains what we want the computer to say
-        let message = "I'm thinking of a number between 1 and 100. Guess what it is. "
-        
+ 
         // Make an Object named 'utterance', which is an instance of the
         // class 'AVspeechUtterance'
-        var utterance = AVSpeechUtterance(string: message)
+        let utterance = AVSpeechUtterance(string: message)
         
         // Speek the message
         Synthesizer.speak(utterance)
     }
-
-
-}
-
+    
+    
+ }
